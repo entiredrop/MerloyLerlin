@@ -19,7 +19,7 @@ class Login {
 		string pass;
 		bool logged=false;
 		consultUsers(string user);
-		Login() {user="";pass="";}
+		Login() {user="";pass="";loadFile();}
 		
 		void parseLogin(string s);
 	public:

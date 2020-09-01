@@ -5,6 +5,8 @@ Login *Login::instance = 0;
 
 int main(int argc, char** argv) {
 	Login *l = l->getInstance();
-	l->loadFile();
+	if(l->TryLogin("caiocesar")) {
+		cout << "\n\nDigite sua senha";
+	}
 	return 0;
 }
