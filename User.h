@@ -19,6 +19,8 @@ class User {
 		int permission;
 		
 	public:
+		User();
 		User(string username, string password, string Nome, int permission);
 		string getUsername() {return this->username;}
+		string getPassword() { return this->password;}
 };

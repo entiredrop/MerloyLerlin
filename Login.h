@@ -9,6 +9,7 @@
 #include <sstream>
 #include <math.h>
 #include <fstream>
+#include "User.h"
 
 using namespace std;
 
@@ -18,6 +19,8 @@ class Login {
 		string user;
 		string pass;
 		bool logged=false;
+		User activeUser;
+		
 		consultUsers(string user);
 		Login() {user="";pass="";loadFile();}
 		
@@ -32,4 +35,5 @@ class Login {
 		void loadFile();
 		bool TryLogin(string user);
 		bool TryPassword(string password);
+		bool isLogged();
 };
