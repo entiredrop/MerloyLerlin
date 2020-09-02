@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Class Salesman{
+class Salesman{
 	public:
 		void remove_product();
-}
+};
