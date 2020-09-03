@@ -3,7 +3,7 @@
 
 using namespace std;
 
-class Salesman{
+class Salesman: public User{
 	public:
 		
 };
