@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 User::User() {
 	this->username = "";
 	this->password = "";
@@ -30,30 +31,26 @@ User::User(string nome, string CPF, string genero, string userN, string senha, i
 
 void User::permissao(){
 	
-	if(this->permission == 1){
+	
+	switch (this->permission){
 		
-		cout << "\nEste usuario nao pode adicionar um produto!\n" << endl; 
+		case 0 :
+			cout << "\nEste usuario nao tem nenhuma permissao!\n" << endl; 
 		
+		case 1:
+				cout << "\nEste usuario nao pode adicionar um produto!\n" << endl; 
+				
+		case 2:
+			cout << "\nEste usuario pode adicionar um produto!\n" << endl; 
+			
+		case 3:
+			cout << "\nEste usuario pode adicionar e editar um produto!\n" << endl;
+			
+		case 4:
+			cout << "\nEste usuario pode adicionar, editar e remover um produto!\n" << endl; 	
+	
 	}
 	
-	else if(this->permission == 2){
-		
-		cout << "\nEste usuario pode adicionar um produto!\n" << endl; 
-		
-	}
-	
-	else if (this->permission == 3){
-		
-		cout << "\nEste usuario pode adicionar e editar um produto!\n" << endl; 
-		
-	}
-	
-	else if(this->permission == 4){
-		
-		cout << "\nEste usuario pode adicionar, editar e remover um produto!\n" << endl; 
-		
-	}
-
 	
 }
 
@@ -145,7 +142,6 @@ void User::setuserName(string nm){
 User::~User(){
 	
 	cout << "\nEste usuario foi removido!\n" << endl;
-	
 	
 }
 
