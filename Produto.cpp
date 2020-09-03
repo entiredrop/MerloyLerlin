@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "Produto.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,3 +55,6 @@ void Produto::consultar_produto(){
 	cout << "Quantidade em estoque" << this->quantidade_estoque << endl;
 	cout << "Preco" << this->preco << endl;
 }
+=======
+#include "Produto.h"
+>>>>>>> c2c8c8716c7665e6efb985c6a8fbae28ecfd9a72
