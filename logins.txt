@@ -1,2 +1,2 @@
-caiocesar,teste123,Caio,2
-caiocordeiro,testesenha,Cordeiro,4
+-Padrao: string nome, string CPF, string genero, string userN, string senha, int idade, int permissao
+Caio,12345678900,male,caiocesar,teste123,42,2

@@ -1,7 +1,8 @@
 #include "Produto.h"
 #include <stdio.h>
 #include <stdlib.h>
-# include <iostream>
+#include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -17,7 +18,8 @@ Produto::Produto(char nome_produto[], char modelo[], int quantidade_estoque, flo
 	strcpy(this->nome_produto, nome_produto);
 	strcpy(this->modelo, modelo);
 	this->quantidade_estoque = quantidade_estoque;
-	this->preco = preco;alterar_modelo()`
+	this->preco = preco;
+	alterar_modelo();
 }
 
 Produto Produto::operator +(int unidades){

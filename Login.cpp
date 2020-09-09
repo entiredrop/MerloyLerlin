@@ -1,22 +1,24 @@
 #include "Login.h"
 #include <List>
 
-#define DEBUG false
+#define DEBUG true
 /*
 Padrão de usuários:
 
 Usuario,Senha,Nome,Permissao
 */
 
-vector<User> users; //Vetor de usuários
+ //Vetor de usuários
 
 void Login::loadFile() {
+	users.clear();
 	string line; //String temporário para armazenar dados de cada linha antes de jogar no vetor
 	ifstream myfile ("logins.txt"); //carrega arquivo logins.txt
 	if (myfile.is_open()) //abre arquivo
 	{
 		while ( getline (myfile,line) ) //Vai pegando cada linha
 		{
+			if(line.at(0) == '-') continue;
 			cout << '\n' << line << '\n';
 			parseLogin(line); //Carrega o usuário na memória
 		}
@@ -43,22 +45,26 @@ void Login::parseLogin(string s) {
 	
 	if(DEBUG) cout << "\nsaiu do while, tamanho: " << login.size();
 	
-	User a(login.at(0), login.at(1),login.at(2), stoi(login.at(3))); //Cria um novo usuário
+	User a(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))); //Cria um novo usuário
 	
 	if(DEBUG) cout << "\nCriou usuario";
 	
-	users.push_back(a); //Coloca usuario na lista
-	
+	//users.emplace_back(a); //Coloca usuario na lista
+	users.emplace_back(User(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))));
 	if(DEBUG) cout << "\nColocou usuario";
 }
 
 bool Login::TryLogin(string username) {
 	//for (int i = 0; i != users.size(); ++i) 
     //    cout << users.at(1) ;
-    for(int i = 0; i<users.size(); ++i) { //For para comparar se o usuário existe
+    if(DEBUG) cout << "\nTrylogin " << username << " tamanho users: " << users.size();
+    for(int i = 0; i<users.size(); ++i) {
+    	if(DEBUG) cout << "\nProcurando...";
     	if(((User)users.at(i)).getUsername() == username) {
+    		if(DEBUG) cout << "ACHOU USUARIO";
     		//Login existe
-    		activeUser = (User)users.at(i);
+    		activeUser = new User(((User)users.at(i)).getNome(), ((User)users.at(i)).getcpf(), ((User)users.at(i)).getGenero(), ((User)users.at(i)).getUsername(), ((User)users.at(i)).getPassword(), ((User)users.at(i)).getIdade(), ((User)users.at(i)).getPermissao());
+    		if(DEBUG) cout << "Retornando verdadeiro";
     		return true;
 		}
 	}
@@ -66,7 +72,7 @@ bool Login::TryLogin(string username) {
 }
 
 bool Login::TryPassword(string password) {
-	if(activeUser.getPassword() == password) {
+	if(activeUser->getPassword() == password) {
 		logged = true;
 	}
 	else

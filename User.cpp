@@ -16,6 +16,7 @@ User::User() {
 
 
 User::User(string nome, string CPF, string genero, string userN, string senha, int idade, int permissao)
+{
 	
 	this->username = userN;
 	this->password = senha;
@@ -85,7 +86,7 @@ int User::getIdade(){
 }
 
 void User::setIdade(int d){
-	this->age = idade;
+	this->age = d;
 }
 
 //------PERMISSION----------
@@ -141,7 +142,7 @@ void User::setuserName(string nm){
 
 User::~User(){
 	
-	cout << "\nEste usuario foi removido!\n" << endl;
+	//cout << "\nEste usuario foi removido!\n" << endl;
 	
 }
 
