@@ -19,7 +19,6 @@ void Stockist::add_product(){
 	while(!this->check_product(nome)){
 		cout << "Produto inexistente, entre com um nome valido: ";
 		getline(cin, nome);
-	}
 		
 		cout << "Digite a quantidade a ser adicionada: ";
 		cin >> qtde;
@@ -76,6 +75,8 @@ void Stockist::change_product(string nome, int qtde){
 	while (read1 >> input) {
     	write1 << input << " ";
 	}	
+	else
+		cout << "Entrada invalida"<<endl;
 }
 
 

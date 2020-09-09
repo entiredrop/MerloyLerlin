@@ -29,7 +29,7 @@ class User {
 		User(string nome, string CPF, string genero, string userN, string senha, int idade, int permissao);
 		//User(string username, string password, string Nome, int permission);
 		string getUsername() {return this->username;}
-		string getPassword() { return this->password;}
+		string getPassword();
 		
 		
 		void permissao(); // para verificar a permissão do usuário
@@ -59,6 +59,4 @@ class User {
 		
 		//DESTRUTOR:
 		~User();
-		
-		
 };

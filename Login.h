@@ -15,16 +15,18 @@ using namespace std;
 
 class Login {
 	private:
+		vector<User> users;
 		static Login *instance;
 		string user;
 		string pass;
 		bool logged=false;
-		User activeUser;
 		
 		consultUsers(string user);
-		Login() {user="";pass="";loadFile();}
+		User *activeUser;
+		Login() {users.clear();user="";pass="";loadFile();}
 		
 		void parseLogin(string s);
+		
 	public:
 		static Login *getInstance() {
 			if(!instance) {

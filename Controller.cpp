@@ -1,7 +1,6 @@
 #include "Controller.h"
 #include "Login.h"
 
-Login *Login::instance = 0;
 Login *l = l->getInstance();
 
 Controller::Controller() {
