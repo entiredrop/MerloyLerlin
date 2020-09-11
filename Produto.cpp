@@ -31,22 +31,22 @@ Produto Produto::operator -(int unidades){
 	this->quantidade_estoque = this->quantidade_estoque - unidades;
 }
 
-void Produto::alterar_nome(){
+void Produto::set_name(){
 	cout << "Entre com o novo nome >> ";
 	cin >> this->nome_produto;
 }
 
-void Produto::alterar_modelo(){
+void Produto::set_model(){
 	cout << "Entre com o novo modelo >> ";
 	cin >> this->modelo;
 }
 
-void Produto::alterar_estoque(){
+void Produto::set_stock(){
 	cout << "Entre com o novo estoque >> ";
 	cin >> this->quantidade_estoque;
 }
 
-void Produto::alterar_preco(){
+void Produto::set_price(){
 	cout << "Entre com o novo preco >> ";
 }
 

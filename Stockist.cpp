@@ -1,6 +1,5 @@
 #include<iostream>
 #include <fstream>
-#include "User.h"
 #include "Stockist.h"
 #include "Produto.h"
 

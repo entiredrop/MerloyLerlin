@@ -12,10 +12,10 @@ class Produto{
 		Produto operator +(int unidades); // Chega ao estoque
 		Produto operator -(int unidades); // Venda
 		
-		void alterar_nome();
-		void alterar_modelo();
-		void alterar_estoque();
-		void alterar_preco();
+		void set_name();
+		void set_model();
+		void set_stock();
+		void set_price();
 		
 		void consultar_produto();
 };
