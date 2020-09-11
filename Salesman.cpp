@@ -1,10 +1,11 @@
 #include<iostream>
 #include<fstream>
 #include "Salesman.h"
-#include "Stockist.h"
 #include<sstream>
 
 using namespace std;
+
+Stock *s = s->getInstance();
 
 void Salesman::remove_product(){
 	ifstream file;
@@ -19,9 +20,9 @@ void Salesman::remove_product(){
 	cout << "Digite o nome do produto: ";
 	getline(cin, nome);
 	
-	Stockist temp;
+	//Stockist temp;
 		
-	while(!temp.check_product(nome)){
+	while(!s->check_product(nome)){
 		cout << "Produto inexistente no estoque. Digite um produto valido: ";
 		getline(cin, nome);
 	}
@@ -29,12 +30,14 @@ void Salesman::remove_product(){
 	cout << "Digite a quantidade vendida: ";
 	cin >> qtde;
 	
-	this->sell_product(nome, qtde);
+	s->remove_stock(nome,qtde);
+	//this->sell_product(nome, qtde);
 	
 	file.close();
 }
 
 void Salesman::sell_product(string nome, int qtde){
+	//Gravar em um arquivo a venda, produto   valor    valor total
 	string input, modelo;
 	int qtde_anterior;
 	float preco;

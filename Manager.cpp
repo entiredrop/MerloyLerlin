@@ -3,6 +3,8 @@
 
 using namespace std;
 
+Stock *s = s->getInstance();
+
 void Manager::execute(){
 	int choice;
 	
@@ -43,72 +45,40 @@ void Manager::change_product(){
 			fflush(stdin);
 			cout <<"Digite qual produto desejas alterar o nome: ";
 			getline(cin, nome_produto);
-			while(!this->check_product(nome_produto)){
+			while(!s->check_product(nome_produto)){
 				cout << "Produto inexistente. Digite novamente: ";
 				getline(cin, nome_produto);
 			}
 			fflush(stdin);
-			cout << "Digite o novo nome para o produto: ";
-			getline(cin,novo_nome);
+
+			s->changeName(nome_produto);
 			
-			while(!read.eof()){
-				getline(read, input);
-				if(input == nome_produto){
-					write << novo_nome << endl;
-				}
-				else
-					write << input << endl;
-				}
 			break;
 		case 2:
 			fflush(stdin);
 			cout <<"Digite qual produto desejas alterar o modelo: ";
 			getline(cin, nome_produto);
-			while(!this->check_product(nome_produto)){
+			while(!s->check_product(nome_produto)){
 				cout << "Produto inexistente. Digite novamente: ";
 				getline(cin, nome_produto);
 			}
 			
 			fflush(stdin);
-			cout << "Digite o novo modelo para o produto: ";
-			getline(cin,novo_nome);
 			
-			while(!read.eof()){
-				getline(read, input);
-				if(input == nome_produto){
-					write << input << endl;
-					getline(read, input);
-					write << novo_nome << endl;
-				}
-				else
-					write << input << endl;
-				}
+			s->changeModel(nome_produto);
+			
 			break;
 		case 3:
 			fflush(stdin);
 			cout <<"Digite qual produto desejas alterar a quantidade: ";
 			getline(cin, nome_produto);
-			while(!this->check_product(nome_produto)){
+			while(!s->check_product(nome_produto)){
 				cout << "Produto inexistente. Digite novamente: ";
 				getline(cin, nome_produto);
 			}
 			
 			fflush(stdin);
-			cout << "Digite a nova quantidade para o produto: ";
-			cin >> qtde;
-			
-			while(!read.eof()){
-				getline(read, input);
-				if(input == nome_produto){
-					write << input << endl;
-					getline(read, input);
-					write << input << endl;
-					getline(read, input);
-					write << qtde << endl;
-				}
-				else
-					write << input << endl;
-			}
+			s->setAmount(nome_produto);
 			break;
 		case 4:
 			fflush(stdin);
@@ -120,25 +90,10 @@ void Manager::change_product(){
 			}
 			
 			fflush(stdin);
-			cout << "Digite a nova quantidade para o produto: ";
-			cin >> preco;
-			
-			while(!read.eof()){
-				getline(read, input);
-				if(input == nome_produto){
-					write << input << endl;
-					getline(read, input);
-					write << input << endl;
-					getline(read, input);
-					write << input << endl;
-					getline(read, input);
-					write << preco << endl;
-				}
-				else
-					write << input << endl;
-			}
+			s->setPrice(nome_produto);
 	}
-			
+		
+		/*	
 	read.close();
 	write.close();
 
@@ -149,6 +104,7 @@ void Manager::change_product(){
 		getline(read1, input);
     	write1 << input << endl;
 	}
+	*/
 }
 
 

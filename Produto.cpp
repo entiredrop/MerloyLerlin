@@ -60,6 +60,14 @@ void Produto::set_price(){
 	cin >> this->price;
 }
 
+string Produto::get_name() {
+	return this->name_product;
+}
+
+int Produto::get_stock(){
+	return this->stock_quantity;
+}
+
 void Produto::get_produt(){
 	cout << "\n\n--------------------------------------------" << endl ;
 	cout << "Produto: " << this->name_product << endl;;

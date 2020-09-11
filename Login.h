@@ -33,6 +33,9 @@ class Login {
 				instance = new Login();
 				return instance;
 			}
+			else {
+				return instance;
+			}
 		}
 		void loadFile();
 		bool TryLogin(string user);

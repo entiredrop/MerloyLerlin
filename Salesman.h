@@ -1,5 +1,6 @@
 #include<iostream>
 #include "User.h"
+#include "Stock.h"
 
 using namespace std;
 

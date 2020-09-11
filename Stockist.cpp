@@ -1,11 +1,13 @@
 #include<iostream>
 #include <fstream>
 #include "Stockist.h"
-#include "Produto.h"
 
 using namespace std;
 
+Stock *s = s->getInstance();
+
 void Stockist::add_product(){
+	
 	string nome; //"nome de um produto" a ser procurado no arquivos "produtos.txt"
 	int qtde; //quantidade a ser adicionada ao estoque
 	int choice;
@@ -18,26 +20,23 @@ void Stockist::add_product(){
 	fflush(stdin);
 	
 	if(choice == 1){
-		Produto temp;
-		temp.set_name();
-		temp.set_model();
-		temp.set_stock();
-		temp.set_price();
-		temp.save_product();
+		s->createProduct();
+		
+		//temp.save_product();
 	}
 	
 	else if(choice == 2){
 		cout << "Digite o nome do produto: ";
 		getline(cin, nome);
-		while(!this->check_product(nome)){
+		while(!s->check_product(nome)){
 			cout << "Produto inexistente, entre com um nome valido: ";
 			getline(cin, nome);
 		}
 		
 			cout << "Digite a quantidade a ser adicionada: ";
 			cin >> qtde;
-		
-			this->change_stock(nome, qtde);
+			s->add_stock(nome, qtde);
+			//this->add_stock(nome, qtde);
 	}
 	else
 		cout << "Entrada invalida" << endl;
@@ -60,7 +59,8 @@ bool Stockist::check_product(string nome){
 	return flag;
 }
 
-void Stockist::change_stock(string nome, int qtde){
+void Stockist::add_stock(string nome, int qtde){
+	
 	string input, modelo;
 	int qtde_anterior;
 	float preco;

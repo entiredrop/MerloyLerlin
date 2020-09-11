@@ -24,6 +24,8 @@ class Produto{
 		void set_stock();
 		void set_price();
 		
+		int get_stock();
+		string get_name();
 		void get_produt(); // Acesso a todos
 		
 		void save_product(); //salvo o produto num arquivo "produtos.txt"
