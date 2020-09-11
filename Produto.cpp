@@ -78,18 +78,3 @@ void Produto::save_product(){
 	write << this->price << endl;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
