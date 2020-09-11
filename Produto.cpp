@@ -1,60 +1,95 @@
-<<<<<<< HEAD
 #include "Produto.h"
 #include <stdio.h>
 #include <stdlib.h>
-# include <iostream>
+#include <iostream>
+#include <fstream> // ofstream e ifstream
+#include <string>
 
 using namespace std;
 
 Produto::Produto(){
-	strcpy(this->nome_produto, "None");
-	strcpy(this->modelo, "None");
-	this->quantidade_estoque = 0;
-	this->preco = 0;
+	this->name_product = "None";
+	this->model = "None";
+	this->stock_quantity = 0;
+	this->price = 0;
 }
 
-Produto::Produto(char nome_produto[], char modelo[], int quantidade_estoque, float preco){
+Produto::Produto(string name_product, string model, int stock_quantity, float price){
 	
-	strcpy(this->nome_produto, nome_produto);
-	strcpy(this->modelo, modelo);
-	this->quantidade_estoque = quantidade_estoque;
-	this->preco = preco;alterar_modelo()`
-}
-
-Produto Produto::operator +(int unidades){
-	this->quantidade_estoque = this->quantidade_estoque + unidades;
+	this->name_product, name_product;
+	this->model, model;
+	this->stock_quantity = stock_quantity;
+	this->price = price;
 }
 
 
-Produto Produto::operator -(int unidades){
-	this->quantidade_estoque = this->quantidade_estoque - unidades;
+
+// Comprar de produto, incrementar estoque
+Produto Produto::operator +(int units){
+	Produto aux = *this;
+	aux.stock_quantity = (this->stock_quantity + units);
+	return aux;
 }
 
-void Produto::alterar_nome(){
+// Venda de produtos, decrementar estoque
+Produto Produto::operator -(int units){
+	Produto aux = *this;
+	aux.stock_quantity = (this->stock_quantity - units);
+	return aux;
+}
+
+void Produto::set_name(){
 	cout << "Entre com o novo nome >> ";
-	cin >> this->nome_produto;
+	getline(cin, this->name_product);
 }
 
-void Produto::alterar_modelo(){
+void Produto::set_model(){
 	cout << "Entre com o novo modelo >> ";
-	cin >> this->modelo;
+	getline(cin, this->model);
 }
 
-void Produto::alterar_estoque(){
+void Produto::set_stock(){
 	cout << "Entre com o novo estoque >> ";
-	cin >> this->quantidade_estoque;
+	cin >> this->stock_quantity;
 }
 
-void Produto::alterar_preco(){
+void Produto::set_price(){
 	cout << "Entre com o novo preco >> ";
+	cin >> this->price;
 }
 
-void Produto::consultar_produto(){
-	cout << "Produto: " << this->nome_produto << endl;;
-	cout << "Modelo: " << this->modelo << endl;;
-	cout << "Quantidade em estoque" << this->quantidade_estoque << endl;
-	cout << "Preco" << this->preco << endl;
+void Produto::get_produt(){
+	cout << "\n\n--------------------------------------------" << endl ;
+	cout << "Produto: " << this->name_product << endl;;
+	cout << "Modelo: " << this->model << endl;;
+	cout << "Quantidade em estoque: " << this->stock_quantity << endl;
+	cout << "Preco: " << this->price << endl;
+	cout << "--------------------------------------------\n\n" << endl;
 }
-=======
-#include "Produto.h"
->>>>>>> c2c8c8716c7665e6efb985c6a8fbae28ecfd9a72
+
+void Produto::save_product(){
+	ofstream write;
+	
+	write.open("produtos.txt", ios::app); // abre o modo "append"
+	
+	write << this->name_product << endl;
+	write << this->model << endl;
+	write << this->stock_quantity << endl;
+	write << this->price << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,21 +1,31 @@
+#include <string>
+using namespace std;
+
+
 class Produto{
 	private:
-		char nome_produto[20];
-		char modelo[20];
-		int quantidade_estoque;
-		float preco;
+		string name_product;
+		string model;
+		int stock_quantity;
+		float price;
 	
 	public:
 		Produto();
-		Produto(char nome_produto[], char modelo[], int quantidade_estoque, float preco);
+		Produto(string nome_produto, string modelo, int quantidade_estoque, float preco);
+
+		Produto operator +(int units); // Chega ao estoque, acesso estoquista e gerente
+		Produto operator -(int units); // Venda, acesso ao vendedor e gerente
 		
-		Produto operator +(int unidades); // Chega ao estoque
-		Produto operator -(int unidades); // Venda
+		friend ostream& operator <<(ostream&, const Produto& p);
+		friend ostream& operator >>(ostream&, const Produto& p);
 		
-		void alterar_nome();
-		void alterar_modelo();
-		void alterar_estoque();
-		void alterar_preco();
+		void set_name(); // Acesso ao gerente
+		void set_model(); // Acesso ao gerente
+		void set_stock(); // Acesso ao gerente
+		void set_price(); // Acesso ao gerente
 		
-		void consultar_produto();
+		void get_produt(); // Acesso a todos
+		
+		void save_product(); //salvo o produto num arquivo "produtos.txt"
 };
+
