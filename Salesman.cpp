@@ -35,38 +35,59 @@ void Salesman::remove_product(){
 }
 
 void Salesman::sell_product(string nome, int qtde){
-	string input;
+	string input, modelo;
 	int qtde_anterior;
+	float preco;
 	
-	ifstream read, read1;
-	ofstream write, write1;
+	ifstream read("produtos.txt"), read1;
+	ofstream write("temp.txt"), write1;
 
-	read.open("produtos.txt");
-	write.open("temp.txt");
 	
-	while (read >> input)
+	while (!read.eof()){
+		getline(read, input);
 		if(input == nome){
-			write << input << " "; 
-			read >> input;	//executa-se duas vezes "read >> input" porque a quantidade é a segunda informação depois do nome do produto (a primeira é o modelo) 
-			write << input << " ";
-			read >> input; // segunda vez
-			stringstream intValue(input);
+			getline(read, input);	
+			modelo = input; //o proximo parametro depois do nome e o modelo
+			getline(read, input); 
+			stringstream intValue(input); //aqui se tem a quantidade e e feita a conversao para inteiro
 			intValue >> qtde_anterior;
-			qtde = qtde_anterior - qtde; 
-			write << qtde << " ";
+			getline(read,input);
+			stringstream floatValue(input); //aqui se tem a preco e e feita a conversao para inteiro
+			floatValue >> preco;
+		}
+	}
+	
+	read.close();
+	
+	Produto temp(nome, modelo, qtde_anterior, preco);
+	
+	temp = temp - qtde; //sobrecarga de operador
+	
+	read.open("produtos.txt");
+	
+	while(!read.eof()){
+		getline(read, input);
+		if(input == nome){
+			write << input << endl;
+			getline(read, input); 
+			write << input << endl;
+			getline(read, input); 
+			write <<  temp.get_stock() << endl;
 		}
 		else
-			write << input << " ";
-			
-		read.close();
+			write << input << endl;
+	}
+	
+	read.close();
 	write.close();
 
-	read1.open("Temp.txt");
+	read1.open("temp.txt");
 	write1.open("produtos.txt");
 	
-	while (read1 >> input) {
-    	write1 << input << " ";
-	}		
+	while (!read1.eof()){
+		getline(read1, input);
+    	write1 << input <<endl;
+	}
 }
 
 
