@@ -1,4 +1,4 @@
-#include<iostream>
+/*#include<iostream>
 #include<fstream>
 #include "Salesman.h"
 #include<sstream>
@@ -93,4 +93,4 @@ void Salesman::sell_product(string nome, int qtde){
 	}
 }
 
-
+*/

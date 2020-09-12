@@ -17,11 +17,11 @@ Produto::Produto(){
 
 Produto::Produto(string name_product, string model, int stock_quantity, float price){
 	
-	strcpy(this->nome_produto, nome_produto);
-	strcpy(this->modelo, modelo);
-	this->quantidade_estoque = quantidade_estoque;
-	this->preco = preco;
-	alterar_modelo();
+	this->name_product = name_product;
+	this->model = model;
+	this->stock_quantity = stock_quantity;
+	this->price = price;
+	//alterar_modelo();
 }
 
 
@@ -40,24 +40,36 @@ Produto Produto::operator -(int units){
 	return aux;
 }
 
-void Produto::set_name(){
+Produto Produto::set_name(){
 	cout << "Entre com o novo nome >> ";
 	getline(cin, this->name_product);
+	
+	Produto tmp(name_product, model,stock_quantity,price);
+	return tmp;
 }
 
-void Produto::set_model(){
+Produto Produto::set_model(){
 	cout << "Entre com o novo modelo >> ";
 	getline(cin, this->model);
+	
+	Produto tmp(name_product, model,stock_quantity,price);
+	return tmp;
 }
 
-void Produto::set_stock(){
+Produto Produto::set_stock(){
 	cout << "Entre com o novo estoque >> ";
 	cin >> this->stock_quantity;
+	
+	Produto tmp(name_product, model,stock_quantity,price);
+	return tmp;
 }
 
-void Produto::set_price(){
+Produto Produto::set_price(){
 	cout << "Entre com o novo preco >> ";
 	cin >> this->price;
+	
+	Produto tmp(name_product, model,stock_quantity,price);
+	return tmp;
 }
 
 string Produto::get_name() {
@@ -75,6 +87,14 @@ void Produto::get_produt(){
 	cout << "Quantidade em estoque: " << this->stock_quantity << endl;
 	cout << "Preco: " << this->price << endl;
 	cout << "--------------------------------------------\n\n" << endl;
+}
+
+string Produto::get_model() {
+	return this->model;
+}
+
+float Produto::get_price() {
+	return this->price;
 }
 
 void Produto::save_product(){

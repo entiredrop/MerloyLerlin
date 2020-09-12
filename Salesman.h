@@ -1,4 +1,4 @@
-#include<iostream>
+/*#include<iostream>
 #include "User.h"
 #include "Stock.h"
 
@@ -8,4 +8,4 @@ class Salesman: public User{
 	public:
 		void remove_product();
 		void sell_product(string nome, int qtde);
-};
+};*/

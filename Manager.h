@@ -1,4 +1,4 @@
-#include<iostream>
+/*#include<iostream>
 #include<fstream>
 #include<sstream>
 #include "Stockist.h"
@@ -10,4 +10,4 @@ class Manager: public Stockist, Salesman{
 	public:
 		void execute();
 		void change_product();
-};
+};*/

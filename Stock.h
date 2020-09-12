@@ -37,4 +37,6 @@ class Stock {
 		void changeModel(string);
 		void setAmount(string);
 		void setPrice(string);
+		
+		void saveStock();
 };

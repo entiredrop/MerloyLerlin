@@ -1,5 +1,5 @@
 #include "Controller.h"
-#include "Login.h"
+
 
 Login *l = l->getInstance();
 
@@ -19,6 +19,13 @@ void Controller::execute() {
 		}
 		case LOGGED: {
 			//Mostrar menu
+			switch(l->getUser()->getPermissao()) {
+				case 4:
+					//Manager a = (*l->getUser());
+					break;
+			}
+			//Manager a;
+			//a.execute();
 			break;
 		}
 	}
@@ -37,6 +44,7 @@ bool Controller::fazerLogin() {
 		if(l->TryPassword(var)) {
 			cout << "\nLogado!";
 			status = LOGGED;
+			execute();
 		}
 		else {
 			cout << "\nSenha incorreta!";

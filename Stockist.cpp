@@ -1,4 +1,4 @@
-#include<iostream>
+/*#include<iostream>
 #include <fstream>
 #include "Stockist.h"
 
@@ -115,4 +115,4 @@ void Stockist::add_stock(string nome, int qtde){
     	write1 << input <<endl;
 	}
 }
-
+*/

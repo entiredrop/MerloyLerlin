@@ -1,4 +1,4 @@
--Padrao: nome,modelo,qtd,preco
-martelo,v1.5,15,100.00
-serra,v2.0,20,50.00
+martelo,v1.5,17,100.000000
+serra,v2.0,20,50.000000
 alicate,pressao,40,77.64
+

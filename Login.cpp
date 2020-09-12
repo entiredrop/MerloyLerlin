@@ -45,12 +45,12 @@ void Login::parseLogin(string s) {
 	
 	if(DEBUG) cout << "\nsaiu do while, tamanho: " << login.size();
 	
-	//User a(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))); //Cria um novo usuário
+	User a(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))); //Cria um novo usuário
 	
 	if(DEBUG) cout << "\nCriou usuario";
 	
-	//users.emplace_back(a); //Coloca usuario na lista
-	users.emplace_back(User(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))));
+	users.emplace_back(a); //Coloca usuario na lista
+	//users.emplace_back(User(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))));
 	if(DEBUG) cout << "\nColocou usuario";
 }
 
@@ -83,4 +83,8 @@ bool Login::TryPassword(string password) {
 
 bool Login::isLogged() {
 	return logged;
+}
+
+User *Login::getUser() {
+	return this->activeUser;
 }

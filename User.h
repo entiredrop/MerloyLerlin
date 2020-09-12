@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <sstream>
 #include <math.h>
+#include "Stock.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ class User {
 		
 	public:
 		User();
+		User(User const&);
 		User(string nome, string CPF, string genero, string userN, string senha, int idade, int permissao);
 		//User(string username, string password, string Nome, int permission);
 		string getUsername() {return this->username;}
@@ -59,4 +61,35 @@ class User {
 		
 		//DESTRUTOR:
 		~User();
+};
+
+class Salesman: public User{
+	public:
+		void remove_product();
+		void sell_product(string nome, int qtde);
+		Salesman() : User() {
+		}
+		Salesman(User &a) : User(a){
+		};
+};
+
+class Stockist: public User{
+	public:
+		void add_product();
+		bool check_product(string nome);
+		void add_stock(string nome, int qtde);
+		Stockist(User &a) : User(a){
+		}
+		Stockist():User(){
+		};
+};
+
+class Manager: public Stockist, Salesman{
+	public:
+		void execute();
+		void change_product();
+		Manager() : Stockist(),Salesman(){
+		} 
+		Manager(User a) : Stockist(a), Salesman(a){
+		}
 };

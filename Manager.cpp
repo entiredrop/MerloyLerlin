@@ -1,3 +1,4 @@
+/*
 #include<iostream>
 #include "Manager.h"
 
@@ -105,6 +106,6 @@ void Manager::change_product(){
     	write1 << input << endl;
 	}
 	*/
-}
+//}
 
 

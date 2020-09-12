@@ -19,13 +19,15 @@ class Produto{
 		friend ostream& operator <<(ostream&, const Produto& p);
 		friend ostream& operator >>(ostream&, const Produto& p);
 		
-		void set_name();
-		void set_model();
-		void set_stock();
-		void set_price();
+		Produto set_name();
+		Produto set_model();
+		Produto set_stock();
+		Produto set_price();
 		
 		int get_stock();
 		string get_name();
+		string get_model();
+		float get_price();
 		void get_produt(); // Acesso a todos
 		
 		void save_product(); //salvo o produto num arquivo "produtos.txt"

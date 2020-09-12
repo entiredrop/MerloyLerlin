@@ -9,6 +9,7 @@
 #include <sstream>
 #include <math.h>
 #include <fstream>
+#include "Login.h"
 
 using namespace std;
 

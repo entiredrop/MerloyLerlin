@@ -41,4 +41,5 @@ class Login {
 		bool TryLogin(string user);
 		bool TryPassword(string password);
 		bool isLogged();
+		User *getUser();
 };
