@@ -8,6 +8,7 @@ class Produto{
 		string model;
 		int stock_quantity;
 		float price;
+		int qtdsold;
 	
 	public:
 		Produto();
@@ -28,8 +29,8 @@ class Produto{
 		string get_name();
 		string get_model();
 		float get_price();
-		void get_produt(); // Acesso a todos
-		
+		void get_product(); // Acesso a todos
+		int getQtdSold();
 		void save_product(); //salvo o produto num arquivo "produtos.txt"
 };
 

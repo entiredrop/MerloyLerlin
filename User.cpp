@@ -5,8 +5,10 @@ using namespace std;
 
 Stock *s = s->getInstance();
 
+#define DEBUG false
+
 User::User() {
-	cout << "Chamando construtor 1";
+	if(DEBUG)cout << "Chamando construtor 1";
 	this->username = "";
 	this->password = "";
 	this->Name = "";
@@ -22,7 +24,7 @@ User::User() {
 
 User::User(string nome, string CPF, string genero, string userN, string senha, int idade, int permissao)
 {
-	cout << "Chamando construtor 3";
+	if(DEBUG)cout << "Chamando construtor 3";
 	this->username = userN;
 	this->password = senha;
 	this->Name = nome;
@@ -143,12 +145,15 @@ void User::setuserName(string nm){
 	this->username = nm;
 }
 
+void User::listProduct() {
+	s->listProducts();
+}
 
 //DESTRUTOR
 
 User::~User(){
 	
-	cout << "\nEste usuario foi removido!\n" << endl;
+	if(DEBUG)cout << "\nEste usuario foi removido!\n" << endl;
 	
 }
 
@@ -175,173 +180,82 @@ void Salesman::remove_product(){
 	//this->sell_product(nome, qtde);
 }
 
-void Salesman::sell_product(string nome, int qtde){
+void Salesman::sell_product(){
 	//Gravar em um arquivo a venda, produto   valor    valor total
-	string input, modelo;
-	int qtde_anterior;
-	float preco;
+	string nome; //"nome de um produto" a ser procurado no arquivos "products.txt"
+	int qtde; //quantidade vendida
+	string buyerName;
+	fflush(stdin);
 	
-	ifstream read("produtos.txt"), read1;
-	ofstream write("temp.txt"), write1;
-
-	
-	while (!read.eof()){
-		getline(read, input);
-		if(input == nome){
-			getline(read, input);	
-			modelo = input; //o proximo parametro depois do nome e o modelo
-			getline(read, input); 
-			stringstream intValue(input); //aqui se tem a quantidade e e feita a conversao para inteiro
-			intValue >> qtde_anterior;
-			getline(read,input);
-			stringstream floatValue(input); //aqui se tem a preco e e feita a conversao para inteiro
-			floatValue >> preco;
+	cout << "\nDigite o nome do comprador: ";
+	cin >> buyerName;
+	Venda venda;
+	do {
+		fflush(stdin);
+		cout << "\nDigite o nome do produto ou digite 0 para finalizar os produtos: ";
+		getline(cin, nome);
+		if(nome == "0") break;
+		//Stockist temp;
+			
+		while(!s->check_product(nome)){
+			cout << "Produto inexistente no estoque. Digite um produto valido: ";
+			getline(cin, nome);
 		}
-	}
+		
+		cout << "Digite a quantidade vendida: ";
+		cin >> qtde;
+		
+		Produto a = s->getProduct(nome);
+	    venda.putProduct(a, (int)qtde);
+		s->remove_stock(nome,qtde);
+		
+	}while(true);
 	
-	read.close();
 	
-	Produto temp(nome, modelo, qtde_anterior, preco);
 	
-	temp = temp - qtde; //sobrecarga de operador
-	
-	read.open("produtos.txt");
-	
-	while(!read.eof()){
-		getline(read, input);
-		if(input == nome){
-			write << input << endl;
-			getline(read, input); 
-			write << input << endl;
-			getline(read, input); 
-			write <<  temp.get_stock() << endl;
-		}
-		else
-			write << input << endl;
-	}
-	
-	read.close();
-	write.close();
+}
 
-	read1.open("temp.txt");
-	write1.open("produtos.txt");
-	
-	while (!read1.eof()){
-		getline(read1, input);
-    	write1 << input <<endl;
+void Salesman::showOptions() {
+	if(this->getPermissao() == 4) {
+		cout << "\n3 - Realizar Venda";
+	}
+	else {
+		cout << "\n1 - Realizar Venda";
+		cout << "\n2 - Listar produtos";
 	}
 }
 
 
-
 void Stockist::add_product(){
-	
-	string nome; //"nome de um produto" a ser procurado no arquivos "produtos.txt"
-	int qtde; //quantidade a ser adicionada ao estoque
-	int choice;
-	
-	cout << "01 - Criar um novo produto" << endl;
-	cout << "02 - Alterar quantidade de estoque" << endl;
-	cout << "Opcao: ";
-	cin >> choice;
-	
-	fflush(stdin);
-	
-	if(choice == 1){
-		s->createProduct();
+	s->createProduct();
+	return;
+}
+
+void Stockist::add_stock() {
+	if(this->getPermissao() == 4) {
 		
-		//temp.save_product();
 	}
+	else {
 	
-	else if(choice == 2){
-		cout << "Digite o nome do produto: ";
+		string nome; //"nome de um produto" a ser procurado no arquivos "produtos.txt"
+		int qtde; //quantidade a ser adicionada ao estoque
+		cout << "Digite o nome do produto para adicionar estoque: ";
 		getline(cin, nome);
 		while(!s->check_product(nome)){
 			cout << "Produto inexistente, entre com um nome valido: ";
 			getline(cin, nome);
 		}
-		
-			cout << "Digite a quantidade a ser adicionada: ";
-			cin >> qtde;
-			s->add_stock(nome, qtde);
-			//this->add_stock(nome, qtde);
+			
+		cout << "Digite a quantidade a ser adicionada: ";
+		cin >> qtde;
+		s->add_stock(nome, qtde);
 	}
-	else
-		cout << "Entrada invalida" << endl;
 }
 
-bool Stockist::check_product(string nome){
-	ifstream file;
-	string input;
-	bool flag = false;
-	
-	file.open("produtos.txt");
-	
-	while(!file.eof()){
-		getline(file, input);
-		if(input == nome){
-			flag = true;
-			break;	
-		}
-	}
-	return flag;
-}
-
-void Stockist::add_stock(string nome, int qtde){
-	
-	string input, modelo;
-	int qtde_anterior;
-	float preco;
-	
-	ifstream read("produtos.txt"), read1;
-	ofstream write("temp.txt"), write1;
-
-	
-	while (!read.eof()){
-		getline(read, input);
-		if(input == nome){
-			getline(read, input);	
-			modelo = input; //o proximo parametro depois do nome e o modelo
-			getline(read, input); 
-			stringstream intValue(input); //aqui se tem a quantidade e e feita a conversao para inteiro
-			intValue >> qtde_anterior;
-			getline(read,input);
-			stringstream floatValue(input); //aqui se tem a preco e e feita a conversao para inteiro
-			floatValue >> preco;
-		}
-	}
-	
-	read.close();
-	
-	Produto temp(nome, modelo, qtde_anterior, preco);
-	
-	temp = temp + qtde; //sobrecarga de operador
-	
-	read.open("produtos.txt");
-	
-	while(!read.eof()){
-		getline(read, input);
-		if(input == nome){
-			write << input << endl;
-			getline(read, input); 
-			write << input << endl;
-			getline(read, input); 
-			write <<  temp.get_stock() << endl;
-		}
-		else
-			write << input << endl;
-	}
-	
-	read.close();
-	write.close();
-
-	read1.open("temp.txt");
-	write1.open("produtos.txt");
-	
-	while (!read1.eof()){
-		getline(read1, input);
-    	write1 << input <<endl;
-	}
+void Stockist::showOptions() {
+	cout << "\n1 - Criar um novo produto";
+	cout << "\n2 - Alterar produto existente em estoque";
+	cout << "\n3 - Listar produtos";
 }
 
 void Manager::execute(){
@@ -360,24 +274,26 @@ void Manager::execute(){
 		cout << "Opcao invalida"<<endl;
 }
 
+void Manager::showOptions() {
+	Stockist::showOptions();
+	Salesman::showOptions();
+	cout << "\n4 - Criar novo login";
+	cout << "\n5 - Deletar login";
+	cout << "\n6 - Listar produtos";
+}
+
 void Manager::change_product(){
 	string input;
 	string nome_produto, novo_nome, modelo_produto;
 	float preco;
 	int i, choice, qtde;
 	
-	cout << "01 - Alterar nome do produto" <<endl;
-	cout << "02 - Alterar modelo do produto" <<endl;
-	cout << "03 - Alterar quantidade do estoque do produto" <<endl;
-	cout << "04 - Alterar preco do produto" <<endl;
+	cout << "1 - Alterar nome do produto" <<endl;
+	cout << "2 - Alterar modelo do produto" <<endl;
+	cout << "3 - Alterar quantidade do estoque do produto" <<endl;
+	cout << "4 - Alterar preco do produto" <<endl;
 	cout << "Opcao: ";
 	cin >> choice;
-	
-	ifstream read, read1;
-	ofstream write, write1;
-
-	read.open("produtos.txt");
-	write.open("temp.txt");
 	
 	switch(choice){
 		case 1:
@@ -423,7 +339,7 @@ void Manager::change_product(){
 			fflush(stdin);
 			cout <<"Digite qual produto desejas alterar o preco: ";
 			getline(cin, nome_produto);
-			while(!this->check_product(nome_produto)){
+			while(!s->check_product(nome_produto)){
 				cout << "Produto inexistente. Digite novamente: ";
 				getline(cin, nome_produto);
 			}
@@ -431,24 +347,24 @@ void Manager::change_product(){
 			fflush(stdin);
 			s->setPrice(nome_produto);
 	}
-		
-		/*	
-	read.close();
-	write.close();
-
-	read1.open("temp.txt");
-	write1.open("produtos.txt");
-
-	while (!read1.eof()){
-		getline(read1, input);
-    	write1 << input << endl;
-	}
-	*/
 }
 
+Venda::Venda() {
+	vetor.clear();
+}
 
+void Venda::putProduct(Produto a, int qtd) {
+	valor = valor + a.get_price()*qtd;
+	vetor.emplace_back(a);
+}
 
-
-
-
-
+string Venda::getSale() {
+	string temp;
+	
+	for(int aux = 0; aux<vetor.size();aux++) {
+		temp.append(vetor.at(aux).get_name());
+		temp.append("Quantidade vendida: ");
+		temp.append(to_string(vetor.at(aux).getQtdSold()));
+	}
+	return temp;
+}

@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -35,6 +36,8 @@ class User {
 		
 		
 		void permissao(); // para verificar a permissão do usuário
+		void listProduct();
+		virtual void showOptions();
 	
 		//GETTER E SETTER PARA CADA ATRIBUTO
 		string getNome();
@@ -66,7 +69,8 @@ class User {
 class Salesman: public User{
 	public:
 		void remove_product();
-		void sell_product(string nome, int qtde);
+		void sell_product();
+		void showOptions();
 		Salesman() : User() {
 		}
 		Salesman(User &a) : User(a){
@@ -76,20 +80,35 @@ class Salesman: public User{
 class Stockist: public User{
 	public:
 		void add_product();
-		bool check_product(string nome);
-		void add_stock(string nome, int qtde);
+		void add_stock();
+		void showOptions();
+		
 		Stockist(User &a) : User(a){
 		}
 		Stockist():User(){
 		};
 };
 
-class Manager: public Stockist, Salesman{
+class Manager: public Stockist, public Salesman{
 	public:
 		void execute();
 		void change_product();
+		void showOptions();
+		void listProduct() {
+			Salesman::listProduct();
+		}
 		Manager() : Stockist(),Salesman(){
 		} 
 		Manager(User a) : Stockist(a), Salesman(a){
 		}
+};
+
+class Venda {
+	private:
+		float valor = 0;
+	public:
+		Venda();
+		vector<Produto> vetor;
+		void putProduct(Produto);
+		string getSale();
 };

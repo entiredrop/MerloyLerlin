@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -37,6 +38,7 @@ class Stock {
 		void changeModel(string);
 		void setAmount(string);
 		void setPrice(string);
-		
+		void listProducts();
+		Produto getProduct(string name);
 		void saveStock();
 };

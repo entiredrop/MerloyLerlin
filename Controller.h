@@ -27,7 +27,8 @@ class Controller {
 		};
 		
 		Estado status;
-		void displayMenu();
+		int askOption();
+		void doAction(int);
 		
 	public:
 		Controller();

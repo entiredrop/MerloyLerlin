@@ -1,7 +1,7 @@
 #include "Login.h"
 #include <List>
 
-#define DEBUG true
+#define DEBUG false
 /*
 Padrão de usuários:
 
@@ -18,8 +18,9 @@ void Login::loadFile() {
 	{
 		while ( getline (myfile,line) ) //Vai pegando cada linha
 		{
+			if(line.size() <=4 ) continue;
 			if(line.at(0) == '-') continue;
-			cout << '\n' << line << '\n';
+			if(DEBUG)cout << '\n' << line << '\n';
 			parseLogin(line); //Carrega o usuário na memória
 		}
     	myfile.close(); //Fecha arquivo no final
@@ -100,10 +101,37 @@ void Login::createNewLogin() {
 	cin >> password;
 	cout << "\nDigite a idade: ";
 	cin >> idade;
-	cout << "\nEscolha o tipo de usuario:\n1 - Nada\n2 - Estoquista\n3 - Vendedor\n4 - Gerente\nEscolha: ";
+	cout << "\nEscolha o tipo de usuario:\n1 - Nada\n2 - Vendedor\n3 - Estoquista\n4 - Gerente\nEscolha: ";
 	cin >> permissao;
 	
 	users.emplace_back(User(nome,cpf,genero,username,password,idade,permissao));
+	
+	saveLogins();
+}
+
+void Login::deleteLogin() {
+	string username;
+	bool found = false;
+	cout << "\nDigite o nome de usuario a ser deletado: ";
+	do{
+		cin >> username;
+		if(username == "0") {
+			return;
+		}
+		for(int i = 0; i < users.size(); i++) {
+			if(users.at(i).getuserName() == username) {
+				found = true;
+				users.erase(users.begin() + i);
+				cout << "\nUsuario deletado com sucesso! Posicao ";
+				break;
+			}
+		}
+		if(!found) {
+			fflush(stdin);
+			cout << "\nUsuario nao encontrado, digite 0 para sair ou tente novamente: ";
+		}
+	}while(!found);
+	saveLogins();
 }
 
 User *Login::getUser() {
@@ -137,4 +165,9 @@ void Login::saveLogins() {
 	write.open("logins.txt");
 
     write << temp << endl;
+}
+
+void Login::logout() {
+	activeUser = new User();
+	logged = false;
 }

@@ -20,25 +20,99 @@ void Controller::execute() {
 		case LOGGED: {
 			//Mostrar menu
 			cout << "\n Logado! abrindo permissao! " << l->getUser()->getPermissao();
-			displayMenu();
+			//displayMenu();
+			//l->createNewLogin();
+			//l->deleteLogin();
+			cout << "\n\n --- Menu Principal --- ";
+			cout << "\n0 - Logout";
 			switch(l->getUser()->getPermissao()) {
 				case 1:
+					{
+						User a = (*l->getUser());
+						a.showOptions();
+						int option = askOption();
+						if(option == 0) {
+							l->logout();
+							status = WAIT_LOGIN;
+						}
+						if(option == 1) {
+							a.listProduct();
+						}
+					}
 					break;
 				case 2:
 					{
 						Salesman a = (*l->getUser());
+						a.showOptions();
+						int option = askOption();
+						if(option == 0) {
+							l->logout();
+							status = WAIT_LOGIN;
+						}
+						if(option == 1) {
+							a.sell_product();
+						}
+						else if(option == 2) {
+							a.listProduct();
+						}
 					}
 					break;
 				case 3:
 					{
 						Stockist a = (*l->getUser());
+						a.showOptions();
+						int option = askOption();
+						switch (option) {
+							case 0:
+								l->logout();
+								break;
+							case 1:
+								a.add_product();
+								break;
+							case 2:
+								a.add_stock();
+								break;
+							case 3:
+								a.listProduct();
+								break;
+						}
 					}
 					break;
 				case 4:
-					Manager a = (*l->getUser());
-					a.execute();
+					{
+						Manager a = (*l->getUser());
+						a.showOptions();
+						int option = askOption();
+						
+							switch (option) {
+								case 0:
+									l->logout();
+									break;
+								case 1:
+									a.add_product();
+									break;
+								case 2:
+									a.change_product();
+									break;
+								case 3:
+									a.sell_product();
+									break;
+								case 4:
+									l->createNewLogin();
+									break;
+								case 5:
+									l->deleteLogin();
+									break;
+								case 6:
+									a.listProduct();
+									break;
+							}
+						
+					}
 					break;
 			}
+			execute();
+			
 			//Manager a;
 			//a.execute();
 			break;
@@ -70,19 +144,37 @@ bool Controller::fazerLogin() {
 	}
 }
 
-void Controller::displayMenu() {
+int Controller::askOption() {
+	int option;
+	cout << "\nSelecione uma opcao: ";
+	cin >> option;
+	return option;
+}
+
+void Controller::doAction(int option) {
 	switch(l->getUser()->getPermissao()) {
-		case 4:
-			
-			//fallthrough
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		default:
-			cout << "\n -> Deu ruim no displayMenu <-";
-			break;
-	}
+				case 1:
+					break;
+				case 2:
+					{
+						Salesman a = (*l->getUser());
+						a.showOptions();
+						int option = askOption();
+					}
+					break;
+				case 3:
+					{
+						Stockist a = (*l->getUser());
+						a.showOptions();
+						int option = askOption();
+					}
+					break;
+				case 4:
+					{
+						Manager a = (*l->getUser());
+						a.showOptions();
+						int option = askOption();
+					}
+					break;
+			}
 }

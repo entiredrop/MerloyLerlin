@@ -41,6 +41,7 @@ Produto Produto::operator -(int units){
 }
 
 Produto Produto::set_name(){
+	fflush(stdin);
 	cout << "Entre com o novo nome >> ";
 	getline(cin, this->name_product);
 	
@@ -80,13 +81,13 @@ int Produto::get_stock(){
 	return this->stock_quantity;
 }
 
-void Produto::get_produt(){
+void Produto::get_product(){
 	cout << "\n\n--------------------------------------------" << endl ;
 	cout << "Produto: " << this->name_product << endl;;
 	cout << "Modelo: " << this->model << endl;;
 	cout << "Quantidade em estoque: " << this->stock_quantity << endl;
 	cout << "Preco: " << this->price << endl;
-	cout << "--------------------------------------------\n\n" << endl;
+	cout << "--------------------------------------------" << endl;
 }
 
 string Produto::get_model() {
@@ -106,5 +107,9 @@ void Produto::save_product(){
 	write << this->model << endl;
 	write << this->stock_quantity << endl;
 	write << this->price << endl;
+}
+
+int Produto::getQtdSold() {
+	return qtdsold;
 }
 

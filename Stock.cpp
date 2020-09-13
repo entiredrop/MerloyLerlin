@@ -1,6 +1,6 @@
 #include "Stock.h"
 
-#define DEBUG true
+#define DEBUG false
 void Stock::loadFile() {
 	products.clear();
 	string line; //String temporário para armazenar dados de cada linha antes de jogar no vetor
@@ -13,7 +13,7 @@ void Stock::loadFile() {
 			if(DEBUG) cout << "\nTentando parse " << line << " " << line.size();
 			if(line.at(0) == '-') continue;
 			if(line.size() < 4) continue;
-			cout << '\n' << line << '\n';
+			if(DEBUG)cout << '\n' << line << '\n';
 			parseProduct(line); //Carrega o usuário na memória
 		}
 		}
@@ -149,4 +149,18 @@ void Stock::saveStock() {
 	write.open("produtos.txt");
 
     write << temp << endl;
+}
+
+void Stock::listProducts() {
+	for(int aux = 0; aux< products.size();aux++) {
+		products.at(aux).get_product();
+	}
+} 
+
+Produto Stock::getProduct(string nome) {
+	for(int i = 0; i<products.size(); i++) {
+		if(((Produto)products.at(i)).get_name() == nome) {
+			return products.at(i);
+		}
+	}
 }

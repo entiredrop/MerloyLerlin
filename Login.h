@@ -21,7 +21,6 @@ class Login {
 		string pass;
 		bool logged=false;
 		
-		consultUsers(string user);
 		User *activeUser;
 		Login() {users.clear();user="";pass="";loadFile();}
 		
@@ -42,6 +41,8 @@ class Login {
 		bool TryPassword(string password);
 		bool isLogged();
 		void createNewLogin();
+		void deleteLogin();
 		User *getUser();
 		void saveLogins();
+		void logout();
 };
