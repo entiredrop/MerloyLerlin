@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <sstream>
 #include <math.h>
+#include <map>
 #include "Stock.h"
 
 using namespace std;
@@ -106,9 +107,12 @@ class Manager: public Stockist, public Salesman{
 class Venda {
 	private:
 		float valor = 0;
+		map<Produto, int> sale;
+		string buyer;
+		string seller;
 	public:
-		Venda();
+		Venda(string,string);
 		vector<Produto> vetor;
-		void putProduct(Produto);
-		string getSale();
+		void putProduct(Produto, int);
+		void saveSale();
 };

@@ -65,6 +65,7 @@ void Controller::execute() {
 						switch (option) {
 							case 0:
 								l->logout();
+								status = WAIT_LOGIN;
 								break;
 							case 1:
 								a.add_product();
@@ -87,6 +88,7 @@ void Controller::execute() {
 							switch (option) {
 								case 0:
 									l->logout();
+									status = WAIT_LOGIN;
 									break;
 								case 1:
 									a.add_product();

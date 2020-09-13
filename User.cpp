@@ -149,6 +149,9 @@ void User::listProduct() {
 	s->listProducts();
 }
 
+void User::showOptions() {
+}
+
 //DESTRUTOR
 
 User::~User(){
@@ -189,7 +192,7 @@ void Salesman::sell_product(){
 	
 	cout << "\nDigite o nome do comprador: ";
 	cin >> buyerName;
-	Venda venda;
+	Venda venda(buyerName, this->getNome());
 	do {
 		fflush(stdin);
 		cout << "\nDigite o nome do produto ou digite 0 para finalizar os produtos: ";
@@ -200,7 +203,9 @@ void Salesman::sell_product(){
 		while(!s->check_product(nome)){
 			cout << "Produto inexistente no estoque. Digite um produto valido: ";
 			getline(cin, nome);
+			if(nome == "0") break;
 		}
+		if(nome == "0") break;
 		
 		cout << "Digite a quantidade vendida: ";
 		cin >> qtde;
@@ -211,7 +216,7 @@ void Salesman::sell_product(){
 		
 	}while(true);
 	
-	
+	venda.saveSale();
 	
 }
 
@@ -255,7 +260,8 @@ void Stockist::add_stock() {
 void Stockist::showOptions() {
 	cout << "\n1 - Criar um novo produto";
 	cout << "\n2 - Alterar produto existente em estoque";
-	cout << "\n3 - Listar produtos";
+	if(this->getPermissao() != 4)
+		cout << "\n3 - Listar produtos";
 }
 
 void Manager::execute(){
@@ -349,22 +355,66 @@ void Manager::change_product(){
 	}
 }
 
-Venda::Venda() {
+Venda::Venda(string buyer, string seller) {
 	vetor.clear();
+	sale.clear();
+	this->buyer = buyer;
+	this->seller = seller;
 }
 
 void Venda::putProduct(Produto a, int qtd) {
 	valor = valor + a.get_price()*qtd;
-	vetor.emplace_back(a);
+	//vetor.emplace_back(a);
+	//int qtde= qtd;
+	//sale.insert(a,qtde);
+	sale[a] = qtd;
 }
 
-string Venda::getSale() {
-	string temp;
+void Venda::saveSale() {
 	
-	for(int aux = 0; aux<vetor.size();aux++) {
-		temp.append(vetor.at(aux).get_name());
-		temp.append("Quantidade vendida: ");
-		temp.append(to_string(vetor.at(aux).getQtdSold()));
+	//for(int aux = 0; aux<sale.size();aux++) {
+	//	Produto a = sale.;
+	//}
+	ifstream read;
+	read.open("sales.txt");
+	ofstream write1;
+ 	
+ 	string buffer;
+ 	string input;
+	while(!read.eof()){
+		getline(read, input);
+		buffer.append(input);
 	}
-	return temp;
+ 	
+	read.close();
+
+	string temp = buyer;
+	temp.append(",");
+	temp.append(seller);
+	temp.append(",{");
+	
+	//Padrao de venda: Comprador,Vendedor,{item:qtd:subtotal;item:qtd:subtotal}, total.
+	for(std::map<Produto,int>::iterator it = sale.begin(); it != sale.end(); ++it) {
+		Produto a = it->first;
+		temp.append(a.get_name());
+		temp.append(":");
+		temp.append(to_string(it->second));
+		temp.append(":");
+		temp.append(to_string(it->second * a.get_price()));
+		temp.append(";");
+	}
+	temp.erase(temp.end());
+	
+	temp.append("},");
+	temp.append(to_string(valor));
+	
+ 	write1.open("sales.txt");
+	
+    write1 << temp <<endl;
+	
+	
+	//for(auto const& imap: sale)
+    //cout << imap.first;
+	
+	//return temp;
 }

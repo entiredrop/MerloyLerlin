@@ -1,4 +1,4 @@
-martelo,v1.5,7,100.000000
+martelo,v1.5,-3,100.000000
 serra,v2.0,20,50.000000
 alicate,pressao,40,77.639999
 Joelheira,1.0,20,20.000000

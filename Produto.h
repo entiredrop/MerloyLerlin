@@ -1,4 +1,5 @@
 #include <string>
+#include <ostream>
 using namespace std;
 
 
@@ -7,10 +8,10 @@ class Produto{
 		string name_product;
 		string model;
 		int stock_quantity;
-		float price;
 		int qtdsold;
 	
 	public:
+		float price;
 		Produto();
 		Produto(string nome_produto, string modelo, int quantidade_estoque, float preco);
 
@@ -32,5 +33,15 @@ class Produto{
 		void get_product(); // Acesso a todos
 		int getQtdSold();
 		void save_product(); //salvo o produto num arquivo "produtos.txt"
+		
+		bool operator<( const Produto& other) const
+	      {
+	          if ( price == other.price )
+	          {
+	              return price < other.price;
+	          }
+	
+	          return price < other.price;
+	      }
 };
 
