@@ -6,6 +6,7 @@ using namespace std;
 Stock *s = s->getInstance();
 
 User::User() {
+	cout << "Chamando construtor 1";
 	this->username = "";
 	this->password = "";
 	this->Name = "";
@@ -15,20 +16,21 @@ User::User() {
 	this->gender = "";
 }
 
-User::User(User const& usa) {
-	
-}
+//User::User(User const& usa) {
+//	cout << "Chamando construtor 2";
+//}
 
 User::User(string nome, string CPF, string genero, string userN, string senha, int idade, int permissao)
 {
-	
+	cout << "Chamando construtor 3";
 	this->username = userN;
 	this->password = senha;
 	this->Name = nome;
 	this->permission = permissao;
 	this->age = idade;
 	this->cpf = CPF;
-	this->gender = genero; 
+	this->gender = genero;
+	return;
 } 
 
 
@@ -146,15 +148,11 @@ void User::setuserName(string nm){
 
 User::~User(){
 	
-	//cout << "\nEste usuario foi removido!\n" << endl;
+	cout << "\nEste usuario foi removido!\n" << endl;
 	
 }
 
 void Salesman::remove_product(){
-	ifstream file;
-	file.open("produtos.txt");
-	string input;
-	
 	string nome; //"nome de um produto" a ser procurado no arquivos "products.txt"
 	int qtde; //quantidade vendida
 	
@@ -175,8 +173,6 @@ void Salesman::remove_product(){
 	
 	s->remove_stock(nome,qtde);
 	//this->sell_product(nome, qtde);
-	
-	file.close();
 }
 
 void Salesman::sell_product(string nome, int qtde){
@@ -351,8 +347,8 @@ void Stockist::add_stock(string nome, int qtde){
 void Manager::execute(){
 	int choice;
 	
-	cout << "01 - Adicionar um produto" << endl;
-	cout << "02 - Vender um produto" << endl;
+	cout << "1 - Criar/Alterar um produto" << endl;
+	cout << "2 - Vender um produto" << endl;
 	cout << "Opcao: ";
 	cin >> choice;
 	

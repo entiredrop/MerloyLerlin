@@ -1,3 +1,3 @@
 -Padrao: string nome, string CPF, string genero, string userN, string senha, int idade, int permissao
 Caio,12345678900,male,caiocesar,teste123,42,2
-Luiz,45678912300,gay,luizao,testa52,63,4
+Luiz,45678912300,gay,luizinho,testa52,63,4

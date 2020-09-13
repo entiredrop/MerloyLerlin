@@ -27,7 +27,7 @@ class User {
 		
 	public:
 		User();
-		User(User const&);
+		//User(User const&);
 		User(string nome, string CPF, string genero, string userN, string senha, int idade, int permissao);
 		//User(string username, string password, string Nome, int permission);
 		string getUsername() {return this->username;}

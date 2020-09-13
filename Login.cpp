@@ -45,12 +45,12 @@ void Login::parseLogin(string s) {
 	
 	if(DEBUG) cout << "\nsaiu do while, tamanho: " << login.size();
 	
-	User a(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))); //Cria um novo usuário
+	//User a(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))); //Cria um novo usuário
 	
 	if(DEBUG) cout << "\nCriou usuario";
 	
-	users.emplace_back(a); //Coloca usuario na lista
-	//users.emplace_back(User(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))));
+	//users.emplace_back(a); //Coloca usuario na lista
+	users.emplace_back(User(login.at(0), login.at(1),login.at(2),login.at(3),login.at(4), stoi(login.at(5)), stoi(login.at(6))));
 	if(DEBUG) cout << "\nColocou usuario";
 }
 
@@ -85,6 +85,56 @@ bool Login::isLogged() {
 	return logged;
 }
 
+void Login::createNewLogin() {
+	string nome, cpf, genero, username, password;
+	int idade, permissao;
+	cout << "\nDigite o nome da pessoa: ";
+	cin >> nome;
+	cout << "\nDigite o CPF: ";
+	cin >> cpf;
+	cout << "\nDigite o genero: ";
+	cin >> genero;
+	cout << "\nDigite o nome de usuario: ";
+	cin >> username;
+	cout << "\nDigite a senha: ";
+	cin >> password;
+	cout << "\nDigite a idade: ";
+	cin >> idade;
+	cout << "\nEscolha o tipo de usuario:\n1 - Nada\n2 - Estoquista\n3 - Vendedor\n4 - Gerente\nEscolha: ";
+	cin >> permissao;
+	
+	users.emplace_back(User(nome,cpf,genero,username,password,idade,permissao));
+}
+
 User *Login::getUser() {
 	return this->activeUser;
+}
+
+void Login::saveLogins() {
+	cout << "Chamando save logins";
+	string temp = "";
+	for(int aux = 0;aux < users.size(); aux++) {
+		User a = (User)users.at(aux);
+		temp.append(a.getNome());
+		temp.append(",");
+		temp.append(a.getcpf());
+		temp.append(",");
+		temp.append(a.getGenero());
+		temp.append(",");
+		temp.append(a.getuserName());
+		temp.append(",");
+		temp.append(a.getPassword());
+		temp.append(",");
+		temp.append(std::to_string(a.getIdade()));
+		temp.append(",");
+		temp.append(std::to_string(a.getPermissao()));
+		temp.append("\n");
+		
+	}
+	
+	ofstream write;
+
+	write.open("logins.txt");
+
+    write << temp << endl;
 }

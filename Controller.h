@@ -20,10 +20,14 @@ class Controller {
 		
 		enum Estado {
 			WAIT_LOGIN = 0,
-			LOGGED = 1,
+			LOGGED,
+			ADD_STOCK,
+			CHANGE_STOCK,
+			SALE
 		};
 		
 		Estado status;
+		void displayMenu();
 		
 	public:
 		Controller();

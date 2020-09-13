@@ -19,9 +19,24 @@ void Controller::execute() {
 		}
 		case LOGGED: {
 			//Mostrar menu
+			cout << "\n Logado! abrindo permissao! " << l->getUser()->getPermissao();
+			displayMenu();
 			switch(l->getUser()->getPermissao()) {
+				case 1:
+					break;
+				case 2:
+					{
+						Salesman a = (*l->getUser());
+					}
+					break;
+				case 3:
+					{
+						Stockist a = (*l->getUser());
+					}
+					break;
 				case 4:
-					//Manager a = (*l->getUser());
+					Manager a = (*l->getUser());
+					a.execute();
 					break;
 			}
 			//Manager a;
@@ -52,5 +67,22 @@ bool Controller::fazerLogin() {
 	}
 	else {
 		cout << "\nUsuario inexistente!";
+	}
+}
+
+void Controller::displayMenu() {
+	switch(l->getUser()->getPermissao()) {
+		case 4:
+			
+			//fallthrough
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			cout << "\n -> Deu ruim no displayMenu <-";
+			break;
 	}
 }
