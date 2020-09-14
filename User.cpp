@@ -244,6 +244,7 @@ void Stockist::add_stock() {
 	
 		string nome; //"nome de um produto" a ser procurado no arquivos "produtos.txt"
 		int qtde; //quantidade a ser adicionada ao estoque
+		fflush(stdin);
 		cout << "Digite o nome do produto para adicionar estoque: ";
 		getline(cin, nome);
 		while(!s->check_product(nome)){

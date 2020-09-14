@@ -67,7 +67,21 @@ Produto Produto::set_stock(){
 
 Produto Produto::set_price(){
 	cout << "Entre com o novo preco >> ";
-	cin >> this->price;
+	string in;
+
+
+	cin >> in;
+	if(in.find(".")) {
+//		in.erase(in.find("."));
+		in.replace(in.find("."),1,"");
+	}
+	else if(in.find(",")) {
+//		in.erase(in.find(","));
+		in.replace(in.find(","),1,"");
+	}
+	//cout << "Preco definido: " << in;
+	
+	this->price = stoi(in);
 	
 	Produto tmp(name_product, model,stock_quantity,price);
 	return tmp;
