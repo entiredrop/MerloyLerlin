@@ -15,7 +15,7 @@ Produto::Produto(){
 	this->price = 0;
 }
 
-Produto::Produto(string name_product, string model, int stock_quantity, float price){
+Produto::Produto(string name_product, string model, int stock_quantity, int price){
 	
 	this->name_product = name_product;
 	this->model = model;
@@ -86,7 +86,7 @@ void Produto::get_product(){
 	cout << "Produto: " << this->name_product << endl;;
 	cout << "Modelo: " << this->model << endl;;
 	cout << "Quantidade em estoque: " << this->stock_quantity << endl;
-	cout << "Preco: " << this->price << endl;
+	cout << "Preco: " << (float)this->price/100<< "reais" << endl;
 	cout << "--------------------------------------------" << endl;
 }
 
@@ -94,7 +94,7 @@ string Produto::get_model() {
 	return this->model;
 }
 
-float Produto::get_price() {
+int Produto::get_price() {
 	return this->price;
 }
 

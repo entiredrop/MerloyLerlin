@@ -19,16 +19,18 @@ void Controller::execute() {
 		}
 		case LOGGED: {
 			//Mostrar menu
-			cout << "\n Logado! abrindo permissao! " << l->getUser()->getPermissao();
+			//cout << "\n Logado! abrindo permissao! " << l->getUser()->getPermissao();
 			//displayMenu();
 			//l->createNewLogin();
 			//l->deleteLogin();
 			cout << "\n\n --- Menu Principal --- ";
-			cout << "\n0 - Logout";
+
 			switch(l->getUser()->getPermissao()) {
 				case 1:
 					{
 						User a = (*l->getUser());
+						cout << "\n Usuario Comum: " << a.getNome();
+						cout << "\n\n0 - Logout";
 						a.showOptions();
 						int option = askOption();
 						if(option == 0) {
@@ -43,6 +45,8 @@ void Controller::execute() {
 				case 2:
 					{
 						Salesman a = (*l->getUser());
+						cout << "\n Vendedor: " << a.getNome();
+						cout << "\n\n0 - Logout";
 						a.showOptions();
 						int option = askOption();
 						if(option == 0) {
@@ -60,6 +64,8 @@ void Controller::execute() {
 				case 3:
 					{
 						Stockist a = (*l->getUser());
+						cout << "\n Estoquista: " << a.getNome();
+						cout << "\n\n0 - Logout";
 						a.showOptions();
 						int option = askOption();
 						switch (option) {
@@ -82,6 +88,8 @@ void Controller::execute() {
 				case 4:
 					{
 						Manager a = (*l->getUser());
+						cout << "\n Gerente: " << l->getUser()->getNome();
+						cout << "\n\n0 - Logout";
 						a.showOptions();
 						int option = askOption();
 						
@@ -108,6 +116,9 @@ void Controller::execute() {
 								case 6:
 									a.listProduct();
 									break;
+								case 7:
+									a.showSales();
+									break;
 							}
 						
 					}
@@ -128,7 +139,7 @@ bool Controller::fazerLogin() {
 	string var;
 	cin >> var;
 	if(l->TryLogin(var)) {
-		cout << "\n\nDigite sua senha: ";
+		cout << "\nDigite sua senha: ";
 		var = "";
 		fflush(stdin);
 		cin >> var;

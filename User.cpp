@@ -286,12 +286,13 @@ void Manager::showOptions() {
 	cout << "\n4 - Criar novo login";
 	cout << "\n5 - Deletar login";
 	cout << "\n6 - Listar produtos";
+	cout << "\n7 - Listar vendas";
 }
 
 void Manager::change_product(){
 	string input;
 	string nome_produto, novo_nome, modelo_produto;
-	float preco;
+	int preco;
 	int i, choice, qtde;
 	
 	cout << "1 - Alterar nome do produto" <<endl;
@@ -355,6 +356,156 @@ void Manager::change_product(){
 	}
 }
 
+void Manager::showSales() {
+//	cout << "\nShow sales 1";
+	string final;
+	string line; //String temporário para armazenar dados de cada linha antes de jogar no vetor
+	ifstream myfile ("sales.txt"); //carrega arquivo logins.txt
+	if (myfile.is_open()) //abre arquivo
+	{
+		try {
+			while ( getline (myfile,line) ) //Vai pegando cada linha
+			{
+//				cout << "\nShow sales 2";
+				if(DEBUG) cout << "\nTentando parse " << line << " " << line.size();
+				if(line.at(0) == '-') continue;
+				if(line.size() < 4) continue;
+				if(DEBUG)cout << '\n' << line << '\n';
+				final.append(parseSale(line)); //Carrega o usuário na memória
+			}
+		}
+		catch(...) {
+			
+		}
+    	myfile.close(); //Fecha arquivo no final
+    	if(DEBUG) cout << "Finalizado de carregar vendas";
+	}
+	cout<<"\n"<<final;
+}
+
+string Manager::parseSale(string s) {
+//	cout << "\nShow sales 3";
+	vector<string> saleData; 										//Cria vetor temporário de parâmetros
+	string delimiter = ","; 										//Define delimitador de parâmetros
+		
+	size_t pos = 0; 												//Começa na posição zero
+	string token; 													//Parâmetro a ser armazenado temporariamente
+	
+	while ((pos = s.find(delimiter)) != std::string::npos) {
+	    token = s.substr(0, pos); 									//Procura parâmetro da venda
+	    
+	    s.erase(0, pos + delimiter.length()); 						//Remove os parâmetros anteriores
+//	    cout << "\nShow sales 4";
+	    if(token.find("{") != string::npos) {						//Se tiver as chaves, precisa abrir os produtos
+	    	token.erase(token.begin());										//Remove as chaves iniciais
+			token.erase(token.end() -1);									//E as finais
+	    	if(token.find(";") != string::npos) {					//Marcador que define a separacao entre produtos de uma venda
+	    		//Abrir produtos
+//	    		cout << "\nShow sales 5";
+	    		token = parseProductList(token);
+			}
+			else {
+				//Pegar somente um produto
+//				cout << "\nShow sales 5.1";
+				token = parseProductValue(token);
+				
+			}
+	    	
+	    	saleData.push_back(token);
+//	    	cout << "\nShow sales 18";
+		}
+		else {
+//			cout << "\nShow sales 19";
+	    	saleData.push_back(token); 									//Insere parâmetro do usuário no vetor temporário
+		}
+
+		if(DEBUG) cout << token << std::endl;
+	}
+//	cout << "\nShow sales 20";
+	saleData.push_back(s);  										//Coloca último parâmetro do usuário
+	
+	//Padrao de venda:  Comprador, vendedor, produtos, total
+	string final = "  ----- Venda -----\nComprador: ";
+	final.append(saleData.at(0));
+	final.append("\nVendedor: ");
+	final.append(saleData.at(1));
+	
+	final.append(saleData.at(2));
+	final.append("\nTotal: RS ");
+	final.append(to_string(stof(saleData.at(3))/100));
+	final.append("\n\n");
+	return final;
+}
+
+string Manager::parseProductList(string s) {
+//	cout << "\nShow sales 6";
+	vector<string> saleData; 										//Cria vetor temporário de parâmetros
+	string delimiter = ";"; 										//Define delimitador de parâmetros
+	
+	
+	
+	size_t pos = 0; 												//Começa na posição zero
+	string token; 													//Parâmetro a ser armazenado temporariamente
+	
+	while ((pos = s.find(delimiter)) != std::string::npos) {
+//		cout << "\nShow sales 7";
+	    token = s.substr(0, pos); 									//Procura parâmetro do usuário
+	    
+	    s.erase(0, pos + delimiter.length()); 						//Remove os parâmetros anteriores
+	    
+//	    cout << "\nShow sales 8";
+	    token = parseProductValue(token);							//Abre os produtos
+	    
+	    saleData.push_back(token); 									//Insere parâmetro do usuário no vetor temporário
+//		cout << "\nShow sales 14";
+		if(DEBUG) cout << token << std::endl;
+	}
+//	cout << "\nShow sales 15";
+	saleData.push_back(parseProductValue(s));  										//Coloca último parâmetro do usuário
+	
+	string final;
+//	cout << "\nShow sales 16";
+	for(int aux = 0;aux < saleData.size(); aux++) {
+		final.append("\n");
+		final.append(saleData.at(aux));
+	}
+//	cout << "\nShow sales 17";
+	return final;
+}
+
+string Manager::parseProductValue(string s) {
+//	cout << "\nShow sales 9";
+	vector<string> saleData; 										//Cria vetor temporário de parâmetros
+	string delimiter = ":"; 										//Define delimitador de parâmetros
+	
+	size_t pos = 0; 												//Começa na posição zero
+	string token; 													//Parâmetro a ser armazenado temporariamente
+	
+	while ((pos = s.find(delimiter)) != std::string::npos) {
+//		cout << "\nShow sales 10";
+	    token = s.substr(0, pos); 									//Procura parâmetro do usuário
+	    
+	    s.erase(0, pos + delimiter.length()); 						//Remove os parâmetros anteriores
+	    	    
+//	    	    cout << "\nShow sales 11";
+	    saleData.push_back(token); 									//Insere parâmetro do usuário no vetor temporário
+
+		if(DEBUG) cout << token << std::endl;
+	}
+	saleData.push_back(s);  										//Coloca último parâmetro do usuário
+	
+//	cout << "\nShow sales 12";
+	string final;
+	final.append("\nProduto: ");
+	final.append(saleData.at(0));
+	final.append("\nQuantidade: ");
+	final.append(saleData.at(1));
+	final.append("\nSubtotal: RS ");
+	final.append(to_string(stof(saleData.at(2))/100));
+//	cout << "\nShow sales 13";
+	return final;
+}
+
 Venda::Venda(string buyer, string seller) {
 	vetor.clear();
 	sale.clear();
@@ -385,14 +536,12 @@ void Venda::saveSale() {
 		getline(read, input);
 		buffer.append(input);
 	}
- 	
 	read.close();
 
 	string temp = buyer;
 	temp.append(",");
 	temp.append(seller);
 	temp.append(",{");
-	
 	//Padrao de venda: Comprador,Vendedor,{item:qtd:subtotal;item:qtd:subtotal}, total.
 	for(std::map<Produto,int>::iterator it = sale.begin(); it != sale.end(); ++it) {
 		Produto a = it->first;
@@ -403,14 +552,14 @@ void Venda::saveSale() {
 		temp.append(to_string(it->second * a.get_price()));
 		temp.append(";");
 	}
-	temp.erase(temp.end());
-	
+	temp.erase(temp.end()-1);
 	temp.append("},");
 	temp.append(to_string(valor));
 	
+	buffer.append("\n");
+	buffer.append(temp);
  	write1.open("sales.txt");
-	
-    write1 << temp <<endl;
+    write1 << buffer <<endl;
 	
 	
 	//for(auto const& imap: sale)

@@ -91,10 +91,15 @@ class Stockist: public User{
 };
 
 class Manager: public Stockist, public Salesman{
+	private:
+		string parseSale(string);
+		string parseProductList(string);
+		string parseProductValue(string);
 	public:
 		void execute();
 		void change_product();
 		void showOptions();
+		void showSales();
 		void listProduct() {
 			Salesman::listProduct();
 		}
@@ -106,7 +111,7 @@ class Manager: public Stockist, public Salesman{
 
 class Venda {
 	private:
-		float valor = 0;
+		int valor = 0;
 		map<Produto, int> sale;
 		string buyer;
 		string seller;

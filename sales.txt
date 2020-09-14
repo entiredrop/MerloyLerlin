@@ -1,0 +1,2 @@
+Wesley,Luiz,{martelo:10:10000},10000
+Caio,Luiz,{martelo:40:40000;alicate:10:77000},117000

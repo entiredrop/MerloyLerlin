@@ -11,9 +11,9 @@ class Produto{
 		int qtdsold;
 	
 	public:
-		float price;
+		int price;
 		Produto();
-		Produto(string nome_produto, string modelo, int quantidade_estoque, float preco);
+		Produto(string nome_produto, string modelo, int quantidade_estoque, int preco);
 
 		Produto operator +(int units); // Chega ao estoque, acesso estoquista e gerente
 		Produto operator -(int units); // Venda, acesso ao vendedor e gerente
@@ -29,7 +29,7 @@ class Produto{
 		int get_stock();
 		string get_name();
 		string get_model();
-		float get_price();
+		int get_price();
 		void get_product(); // Acesso a todos
 		int getQtdSold();
 		void save_product(); //salvo o produto num arquivo "produtos.txt"

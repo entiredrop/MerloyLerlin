@@ -101,7 +101,7 @@ void Login::createNewLogin() {
 	cin >> password;
 	cout << "\nDigite a idade: ";
 	cin >> idade;
-	cout << "\nEscolha o tipo de usuario:\n1 - Nada\n2 - Vendedor\n3 - Estoquista\n4 - Gerente\nEscolha: ";
+	cout << "\nEscolha o tipo de usuario:\n1 - Usuario comum\n2 - Vendedor\n3 - Estoquista\n4 - Gerente\nEscolha: ";
 	cin >> permissao;
 	
 	users.emplace_back(User(nome,cpf,genero,username,password,idade,permissao));
